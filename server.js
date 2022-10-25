@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const productRouter = require("./routes/productsRouter");
+const ordersRouter = require("./routes/ordersRouter");
+const siteManagerRouter = require("./routes/siteManagerRouter");
 
 const app = express();
 dotenv.config();
@@ -25,6 +28,9 @@ mongoose.connect(URL, {
 });
 
 //routers
+app.use("/products", productRouter);
+app.use("/orders", ordersRouter);
+app.use("/siteManagers", siteManagerRouter);
 
 const connection = mongoose.connection;
 connection.once("open", () => {

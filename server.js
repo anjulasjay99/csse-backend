@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const productRouter = require("./routes/productsRouter");
 const ordersRouter = require("./routes/ordersRouter");
 const siteManagerRouter = require("./routes/siteManagerRouter");
+const supplierRouter = require("./routes/supplierRouter");
 
 const app = express();
 dotenv.config();
@@ -31,6 +32,7 @@ mongoose.connect(URL, {
 app.use("/products", productRouter);
 app.use("/orders", ordersRouter);
 app.use("/siteManagers", siteManagerRouter);
+app.use("/supplier",supplierRouter)
 
 const connection = mongoose.connection;
 connection.once("open", () => {

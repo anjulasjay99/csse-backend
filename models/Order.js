@@ -12,8 +12,10 @@ const orderSchema = new Schema({
   supplierName: { type: String, required: true },
   dateOfOrder: { type: String, required: true },
   amount: { type: Number, required: true },
+  receivedQty: { type: Number, required: false },
   payment: { type: Number, required: true },
   confirmation: { type: Boolean, required: true },
+  orderStatus: { type: String, required: true },
 });
 
 const Order = mongoose.model("orders", orderSchema);

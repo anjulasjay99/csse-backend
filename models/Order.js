@@ -15,7 +15,7 @@ const orderSchema = new Schema({
   receivedQty: { type: Number, required: false },
   payment: { type: Number, required: true },
   confirmation: { type: Boolean, required: true },
-  orderStatus: { type: String, required: true },
+  orderStatus: { type: String, required: true }
 });
 
 const Order = mongoose.model("orders", orderSchema);

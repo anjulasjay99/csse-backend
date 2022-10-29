@@ -74,6 +74,7 @@ router.route("/").post(async (req, res) => {
     });
 });
 
+//Update deliver details of a selected order
 router.route("/updateDeliveryDetails/:orderId").put(async (req, res) => {
   const orderId = req.params.orderId;
   const { receivedQty } = req.body;
@@ -88,6 +89,7 @@ router.route("/updateDeliveryDetails/:orderId").put(async (req, res) => {
     });
 });
 
+//Update status of a selected order
 router.route("/updateStatus/:orderId").put(async (req, res) => {
   const orderId = req.params.orderId;
   const { status } = req.body;

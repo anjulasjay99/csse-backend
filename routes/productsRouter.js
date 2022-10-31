@@ -85,6 +85,7 @@ router.route("/getImage/:id").get(async (req, res) => {
       const image = data.productImage;
       const file = `./images/${image}`;
       res.download(file);
+      res.json({msg:"Image Fetching Success!"});
     })
     .catch((err) => {
       res.status(500).send({ msg: "Error fetching image" });

@@ -5,6 +5,7 @@ const Supplier = require("../models/Supplier");
 supplierRouter.route("/").post(async (req, res) => {
     const { businessName, supplierId, fullName, telephone,email,address,state,zip} = req.body;
     
+    console.log(email)
     const newSupplier = new Supplier({
         businessName,
         supplierId,
@@ -16,6 +17,7 @@ supplierRouter.route("/").post(async (req, res) => {
         zip
     });
   
+    console.log(newSupplier)
     newSupplier
       .save()
       .then((data) => {

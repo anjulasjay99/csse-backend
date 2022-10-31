@@ -6,7 +6,7 @@ const supplierSchema = new Schema({
   businessName: { type: String, required: true },
   supplierId: { type: String, required: true },
   fullName: { type: String, required: true },
-  telephone: { type: Number, required: true },
+  telephone: { type: String, required: true },
   email: { type: String, required: true },
   address: { type: String, required: true },
   state: { type: String, required: true },

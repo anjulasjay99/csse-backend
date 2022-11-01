@@ -12,7 +12,7 @@ describe("GET /orders/all", () => {
     });
 
     //fetch all orders without site id
-    test("should respond with a 404 status code", async () => {
+    test("should respond with a 400 status code", async () => {
       const response = await request(server).get("/orders/all").send();
       expect(response.statusCode).toBe(400);
     });

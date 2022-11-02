@@ -30,13 +30,15 @@ supplierRouter.route("/").post(async (req, res) => {
 
 
 //fetch all fuel Suppliers
-  supplierRouter.route("/").get((req,res) =>{
-    Supplier.find().then((Supplier) =>{
-        res.json(Supplier);
-    }).catch((err) =>{
-        console.log(err);
+ supplierRouter.route("/").get(async (req, res) => {
+  Supplier.find()
+    .then((data) => {
+      res.status(200).json({ msg: "Success", data });
     })
- })
+    .catch((error) => {
+      res.status(400).json({ msg: "Error", error });
+    });
+});
 
  
 //get specific Supplier  by Id
@@ -76,6 +78,33 @@ supplierRouter.route("/get/:id").get(async(req,res) =>{
         });
     });
   });
-  
-  module.exports = supplierRouter;
+
+//delete a supplier
+supplierRouter.route("/delete/:id").delete((req, res) => {
+  const id = req.params.id;
+
+  Supplier
+    .findByIdAndDelete(id)
+    .then(() => {
+      res.status(200).json("Supplier Deleted Successfully!");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json("Error!");
+    });
+});
+
+//get supplier by search value
+supplierRouter.route("/get/user/:email").get(async(req,res) =>{
+  const email = req.params.email;
+  console.log(email);
+  await Supplier.find({email}).then((data)=>{
+    res.json(data);
+    console.log(data)
+  }).catch((err) =>{
+    console.log(err);
+  })
+})
+
+module.exports = supplierRouter;
 

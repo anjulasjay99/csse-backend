@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const SiteManager = require("../models/SiteManager");
 
+//Login to site manager account
 router.route("/login").post(async (req, res) => {
   const { email, password } = req.body;
   await SiteManager.findOne({ email })

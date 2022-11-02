@@ -41,9 +41,9 @@ router.route("/").post(async (req, res) => {
   //generating an unique order id
   const orderId = "ORD" + Date.now();
   const dateOfOrder = new Date().toISOString();
-  const isWithinBudget = checkQtyAndAmount(productName, amount, payment);
-  const confirmation = isWithinBudget;
-  const orderStatus = isWithinBudget ? "Approved" : "Pending";
+  const exceedsBudget = !checkQtyAndAmount(productName, amount, payment);
+  const confirmation = false;
+  const orderStatus = "Pending";
 
   //create order object
   const newOrder = new Order({
@@ -57,6 +57,7 @@ router.route("/").post(async (req, res) => {
     amount,
     receivedQty: 0,
     payment,
+    exceedsBudget,
     dateOfOrder,
     confirmation,
     orderStatus,
@@ -74,6 +75,7 @@ router.route("/").post(async (req, res) => {
     });
 });
 
+//Update deliver details of a selected order
 router.route("/updateDeliveryDetails/:orderId").put(async (req, res) => {
   const orderId = req.params.orderId;
   const { receivedQty } = req.body;
@@ -88,6 +90,7 @@ router.route("/updateDeliveryDetails/:orderId").put(async (req, res) => {
     });
 });
 
+//Update status of a selected order
 router.route("/updateStatus/:orderId").put(async (req, res) => {
   const orderId = req.params.orderId;
   const { status } = req.body;

@@ -9,7 +9,7 @@ describe("POST /Add suppliers" , () =>{
 
     // Positive test for Adding Suppliers
     describe("Positive Test for status code to 'Add Suppliers'" , () =>{
-      jest.setTimeout(30000);
+      jest.setTimeout(50000);
   
       test("Add suppliers Should response with a status code of 200" ,async() =>{
         const response  = await request(server).post('/supplier').send({
@@ -26,11 +26,11 @@ describe("POST /Add suppliers" , () =>{
         expect(response.statusCode).toBe(200);
       });
     });
-  
+})
     // Negative Test for Adding Suppliers
   
     describe("Negative test for status code to 'Add Suppliers'" , ()=>{
-      jest.setTimeout(30000);
+      
   
       test("Add suppliers Should not respond with a status code of 400" , async () =>{
         const response = await request(server).post('/supplier').send({
@@ -40,12 +40,14 @@ describe("POST /Add suppliers" , () =>{
             telephone : "09478356789",
             email : "kamalperera@gmail.com",
             address : "1A/f3/U34 Malabe ,Colombo",
-           
+            state : "Colombo",
+            zip : "10230"
         });
-        expect(response.statusCode).toBe(400);
+        expect(response.statusCode).not.toBe(404);
       })
-    });
+    })
 
+    describe("positive test case for status code to 'Update Suppliers'" , ()=>{
     //postive test for update suppliers
     test("Update Supplier should respond with a 200 status code", async () =>{
         const response = await request(server).post("/supplier/update/6359762895c26c28ebc5fce9").send({
@@ -62,6 +64,22 @@ describe("POST /Add suppliers" , () =>{
     })
   })
   
+  describe("Negative test case for status code to 'Update Suppliers'" , ()=>{
+    //postive test for update suppliers
+    test("Update Supplier should respond with a 200 status code", async () =>{
+        const response = await request(server).post("/supplier/update/").send({
+            businessName : "Saman Perera pvt",
+            supplierId : "S987621",
+            fullName : "K.M Saman piris perera",
+            telephone : "09178356727",
+            email : "samanperera@gmail.com",
+            address : "1p/f9/U74 Kalaniya ,Colombo",
+            state : "Colombo",
+            zip : "10230"
+        });
+        expect(response.statusCode).toBe(404)
+    })
+  })
 
   describe("GET /supplier/ById", () => {
     describe("get specific supplier", () => {
@@ -70,7 +88,7 @@ describe("POST /Add suppliers" , () =>{
     //postive test for  get specific supplier
       test("Get suppliers should respond with a 200 status code", async () => {
         const response = await request(server)
-          .get("/supplier/get/635975f7b5048d1b7f6058b4")
+          .get("/supplier/get/6359762895c26c28ebc5fce9")
           .send();
         expect(response.statusCode).toBe(200);
       });
@@ -80,12 +98,15 @@ describe("POST /Add suppliers" , () =>{
         const response = await request(server)
           .get("/supplier/get")
           .send();
-        expect(response.statusCode).toBe(400);
+        expect(response.statusCode).toBe(404);
       });
   
      
     });
   })
+
+
+
 
   //Unit testing for delete supplier
   describe("DELETE /Delete supplier" , () =>{
@@ -129,4 +150,4 @@ describe("POST /Add suppliers" , () =>{
       })
     });
 
-  })
+})

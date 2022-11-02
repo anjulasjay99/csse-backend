@@ -18,7 +18,7 @@ supplierRouter.route("/").post(async (req, res) => {
     });
   
     console.log(newSupplier)
-    newSupplier
+     newSupplier
       .save()
       .then((data) => {
         res.json("Supplier added Successfully")

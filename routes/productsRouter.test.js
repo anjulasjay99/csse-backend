@@ -1,3 +1,7 @@
+/**
+ * Unit testing for the products router api calls.
+ */
+
 const request = require("supertest");
 const { response } = require("../server");
 const server = require("../server");

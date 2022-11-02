@@ -1,7 +1,11 @@
-const mongoose = require("mongoose");
+/**
+ * This is the product model which holds attributes relevant to the products.
+ */
 
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Creation of the product schema with relevant attributes.
 const productSchema = new Schema({
   productId: { type: String, required: false },
   productName: { type: String, required: true },
@@ -15,6 +19,8 @@ const productSchema = new Schema({
   productImage: { type: String, required: false },
 });
 
+// Creating a collection 'products' in the mongo db database
 const Product = mongoose.model("products", productSchema);
 
+// Module is exported
 module.exports = Product;

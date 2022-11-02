@@ -1,6 +1,9 @@
+/**
+ * APIs for the products service.
+ */
+const multer = require("multer");   // Used for image storage. 
+const Product = require("../models/Product"); // Importing the product model
 const router = require("express").Router();
-const multer = require("multer");
-const Product = require("../models/Product");
 
 // Creating storage to add image files
 const storage = multer.diskStorage({
@@ -25,36 +28,36 @@ router.route("/").get(async (req, res) => {
     });
 });
 
-// Inserting product
 
-// router.route("/addProduct" , upload.single("productImage")).post(async(req,res)=>{
-//   console.log(req.file);
-
-//   const newProduct = new Product({
-//     productId : "P-1",
-//     productName : req.body.productName,
-//     productStatus : "Pending",
-//     productPrice : req.body.productPrice,
-//     productDescription : req.body.productDescription,
-//     supplierName : req.body.supplierName,
-//     quantity : req.body.quantity,
-//     quantityType : req.body.quantityType,
-//     productImage : req.file.originalname
-//   })
-//   await newProduct.save().then((data) =>{
-//     res.status(200).json({msg : "Success"});
-//   }).catch((err) =>{
-//     console.log(err);
-//     res.status(400).json({error : err});
-//   })
-// })
-
+// Adding product to the Database
 router.post(
   "/addProduct",
   upload.single("productImage"),
   async function (req, res) {
+    // Generating unique id
+    let productId = "";
+    let success = false;
+
+    while(!success){
+      productId = "PRD"+ Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0");
+
+      // Checking if generated id already exists
+      await Product.exists({productId}).then((status) =>{
+        if(status) {
+          success = false;
+        }
+        else {
+          success = true;
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+
     const newProduct = new Product({
-      productId: "P-1",
+      productId: productId,
       productName: req.body.productName,
       productStatus: "Pending",
       productPrice: req.body.productPrice,
@@ -77,15 +80,14 @@ router.post(
 );
 
 // Fetch product image
-
 router.route("/getImage/:id").get(async (req, res) => {
   const product = req.params.id;
   await Product.findById(product)
     .then((data) => {
       const image = data.productImage;
       const file = `./images/${image}`;
+      console.log(file)
       res.download(file);
-      res.json({msg:"Image Fetching Success!"});
     })
     .catch((err) => {
       res.status(500).send({ msg: "Error fetching image" });

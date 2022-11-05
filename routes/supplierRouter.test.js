@@ -50,7 +50,7 @@ describe("POST /Add suppliers" , () =>{
     describe("positive test case for status code to 'Update Suppliers'" , ()=>{
     //postive test for update suppliers
     test("Update Supplier should respond with a 200 status code", async () =>{
-        const response = await request(server).post("/supplier/update/6359762895c26c28ebc5fce9").send({
+        const response = await request(server).post("/supplier/update/636001e41971a628ebe0bd80").send({
             businessName : "Saman Perera pvt",
             supplierId : "S987621",
             fullName : "K.M Saman piris perera",
@@ -58,7 +58,7 @@ describe("POST /Add suppliers" , () =>{
             email : "samanperera@gmail.com",
             address : "1p/f9/U74 Kalaniya ,Colombo",
             state : "Colombo",
-            zip : "10230"
+            zip : "10230",
         });
         expect(response.statusCode).toBe(200)
     })
@@ -88,7 +88,7 @@ describe("POST /Add suppliers" , () =>{
     //postive test for  get specific supplier
       test("Get suppliers should respond with a 200 status code", async () => {
         const response = await request(server)
-          .get("/supplier/get/6359762895c26c28ebc5fce9")
+          .get("/supplier/get/636001e41971a628ebe0bd80")
           .send();
         expect(response.statusCode).toBe(200);
       });

@@ -29,7 +29,7 @@ mongoose.connect(URL, {
 app.use("/products", productRouter);
 app.use("/orders", ordersRouter);
 app.use("/siteManagers", siteManagerRouter);
-app.use("/supplier",supplierRouter);
+app.use("/supplier", supplierRouter);
 
 const connection = mongoose.connection;
 connection.once("open", () => {

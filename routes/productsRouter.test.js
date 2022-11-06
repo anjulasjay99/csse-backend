@@ -30,32 +30,30 @@ describe("GET /products", () => {
   });
 
 
-  // // Returned Object keys matching
+  // Returned Object keys matching
 
-  // describe("Match returned object keys of product data" , () => {
-  //   jest.setTimeout(30000);
+  describe("Match returned object keys of product data" , () => {
+    jest.setTimeout(30000);
 
     
-  // // Object keys to be matched with
-  // const productMatch = {
-  //   _id: "6357bf68f25fd541025b0173",
-  //   productId: "P001",
-  //   productStatus: "Available",
-  //   productPrice: 5000,
-  //   productDescription: "Cement Description",
-  //   supplierId: "S001",
-  //   supplierName: "Dammika Perera",
-  //   quantity: "10",
-  //   productImage: "",
-  //   productName: "Cement"
-  // }
-  //   test("Should match object keys defined" , async() =>{
-  //     const response = await request(server).get("/products").send();
-  //     console.log(response);
-      
-  //     expect(Object.keys(response.data).sort()).toEqual(Object.keys(productMatch).sort());
-  //   });
-  // });
+  // Object keys to be matched with
+  const productMatch = {
+    _id: "6357bf68f25fd541025b0173",
+    productId: "P001",
+    productStatus: "Available",
+    productPrice: 5000,
+    productDescription: "Cement Description",
+    supplierId: "S001",
+    supplierName: "Dammika Perera",
+    quantity: "10",
+    productImage: "",
+    productName: "Cement"
+  }
+    test("Should match object keys defined" , async() =>{
+      const response = await request(server).get("/products").send();
+      expect(Object.keys(JSON.parse(response.text).data[0]).sort()).toEqual(Object.keys(productMatch).sort());
+    });
+  });
 
 });
 
@@ -102,4 +100,3 @@ describe("POST /products/addProduct" , () =>{
 })
 
 
-// Image fetching tests

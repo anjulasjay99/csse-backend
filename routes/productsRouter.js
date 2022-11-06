@@ -1,7 +1,7 @@
 /**
  * APIs for the products service.
  */
-const multer = require("multer");   // Used for image storage. 
+const multer = require("multer"); // Used for image storage.
 const Product = require("../models/Product"); // Importing the product model
 const router = require("express").Router();
 
@@ -28,7 +28,6 @@ router.route("/").get(async (req, res) => {
     });
 });
 
-
 // Adding product to the Database
 router.post(
   "/addProduct",
@@ -38,22 +37,25 @@ router.post(
     let productId = "";
     let success = false;
 
-    while(!success){
-      productId = "PRD"+ Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(3, "0");
+    while (!success) {
+      productId =
+        "PRD" +
+        Math.floor(Math.random() * 1000)
+          .toString()
+          .padStart(3, "0");
 
       // Checking if generated id already exists
-      await Product.exists({productId}).then((status) =>{
-        if(status) {
-          success = false;
-        }
-        else {
-          success = true;
-        }
-      }).catch((err) => {
-        console.log(err);
-      })
+      await Product.exists({ productId })
+        .then((status) => {
+          if (status) {
+            success = false;
+          } else {
+            success = true;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     const newProduct = new Product({
@@ -86,7 +88,7 @@ router.route("/getImage/:id").get(async (req, res) => {
     .then((data) => {
       const image = data.productImage;
       const file = `./images/${image}`;
-      console.log(file)
+      console.log(file);
       res.download(file);
     })
     .catch((err) => {
